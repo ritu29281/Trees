@@ -1,0 +1,27 @@
+Input:
+         10
+        /   \
+      20    30
+    /   \ 
+   40   60
+Output: 4
+Code:
+
+int height(Node* root,int &dia){
+        if(root==NULL){
+            return 0;
+        }
+        int leftheight=height(root->left,dia);
+        int rightheight=height(root->right,dia);
+        dia=max(dia,1+leftheight+rightheight);
+        return 1 + max(leftheight,rightheight);
+    }
+    int diameter(Node* root) {
+        if(root==NULL){
+            return 0;
+        }
+        int ans=0;
+        height(root,ans);
+        
+        return ans;
+    }
