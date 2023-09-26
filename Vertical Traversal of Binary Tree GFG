@@ -1,0 +1,31 @@
+ vector<int> verticalOrder(Node *root)
+    {
+       vector<int>ans;
+        queue<pair<Node*,pair<int,int>>>q;
+        q.push({root,{0,0}});
+        map<int,map<int,vector<int>>>mp;
+         if(root == NULL)
+            return ans;
+        while(!q.empty()){
+            auto front=q.front();
+            q.pop();
+            Node* node=front.first;
+            auto coordinates=front.second;
+            int row=coordinates.first;
+            int col=coordinates.second;
+            mp[col][row].push_back(node->data);
+            if(node->left){
+                q.push({node->left,{row+1,col-1}});
+            }
+            if(node->right){
+                q.push({node->right,{row+1,col+1}});
+            }
+        }  
+          for(auto i : mp)
+            for(auto j : i.second)
+                for(auto k : j.second)
+                    ans.push_back(k);
+        return ans;
+        
+        
+    }
