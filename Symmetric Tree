@@ -1,0 +1,19 @@
+Input: root = [1,2,2,3,4,4,3]
+Output: true
+CODE:
+
+bool check(TreeNode*L,TreeNode*R){
+       if(L==NULL && R==NULL) return true;
+      else  if(L==NULL && R!=NULL)return false;
+       else if(L!=NULL && R==NULL) return false;
+       else if(L->val==R->val &&check(L->left,R->right) && check(L->right,R->left)){
+            return true;
+        }
+        else
+            return false;
+       
+    }
+    bool isSymmetric(TreeNode* root) {
+      bool ans=check(root,root); 
+        return ans;
+    }
