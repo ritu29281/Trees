@@ -1,0 +1,23 @@
+Input:
+     11
+    /  \
+   1    2
+Output: 11
+Explanation: The maximum sum is sum of
+node 11.
+CODE:
+
+pair<int,int>helper(Node*root){
+       if(!root)return {0,0};
+       auto left=helper(root->left);
+       auto right=helper(root->right);
+       int a=root->data + left.second + right.second;//include
+       int b=max(left.first,left.second)+max(right.first,right.second);//exclude
+       return {a,b};
+   }
+    //Function to return the maximum sum of non-adjacent nodes.
+    int getMaxSum(Node *root) 
+    {
+       auto ans=helper(root);
+       return max(ans.first,ans.second);
+    }
