@@ -1,0 +1,45 @@
+Input: 
+        4        
+       / \       
+      2   5      
+     / \ / \     
+    7  1 2  3    
+      /
+     6
+Output: 13
+Explanation:
+        4        
+       / \       
+      2   5      
+     / \ / \     
+    7  1 2  3 
+      /
+     6
+
+The highlighted nodes (4, 2, 1, 6) above are 
+part of the longest root to leaf path having
+sum = (4 + 2 + 1 + 6) = 13
+CODE:
+
+pair<int,int>height(Node* root){
+        if(root==NULL) return {0,0};
+        auto left= height(root->left);
+        auto right= height(root->right);
+        int sum=root->data;
+        if(left.first==right.first){
+        sum=sum+(left.second>right.second?left.second:right.second);
+        }
+        else if(left.first>right.first){
+            sum=sum+left.second;
+        }
+        else if(left.first<right.first){
+            sum=sum+right.second;
+        }
+        return {max(left.first,right.first)+1,sum};
+    }
+    
+    int sumOfLongRootToLeafPath(Node *root)
+    {
+        auto ans=height(root);
+        return ans.second;
+    }
