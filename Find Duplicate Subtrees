@@ -1,0 +1,42 @@
+Input :
+       1
+      / \
+     2   3
+    /   / \
+   4   2   4
+      /
+     4
+
+Output : 
+   2           
+  /    and    4
+ 4
+Explanation: Above Trees are two duplicate subtrees. 
+Therefore, you need to return above trees root in the 
+form of a list.
+CODE:
+
+string preorder(Node*root,vector<Node*>&ans,unordered_map<string,int>&mp){
+        if(root==NULL)return "N";
+        string curr=to_string(root->data);
+        string left= preorder(root->left,ans,mp);
+        string right=preorder(root->right,ans,mp);
+        string s=curr+","+left+","+right;
+        if(mp.find(s)!=mp.end()){
+            if(mp[s]==1){
+                ans.push_back(root);
+            }
+            mp[s]++;
+        }
+        else{
+            mp[s]=1;
+        }
+        return s;
+    }
+vector<Node*> printAllDups(Node* root)
+{
+   vector<Node*>ans;
+   unordered_map<string,int>mp;
+    preorder(root,ans,mp);
+    return ans;
+}
