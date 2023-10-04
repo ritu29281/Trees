@@ -1,0 +1,47 @@
+Morris Traversal is same as an Inorder Traversal but the complexity is O(1)
+
+Input:
+           1
+         /    \
+       2       3
+      /   \
+    4     5
+Output: 4 2 5 1 3
+Explanation:
+Inorder traversal (Left->Root->Right) of 
+the tree is 4 2 5 1 3.
+
+CODE:
+
+  vector<int>ans;
+    vector<int> inorderTraversal(TreeNode* root) {
+       TreeNode* curr=root;
+        while(curr){
+            //first check left is null or not if null then save current and go right
+            if(curr->left==NULL){
+                ans.push_back(curr->val);
+                curr=curr->right;
+            }
+            else{
+                //find predecessor 
+                TreeNode* pred=curr->left;
+                while(pred->right && pred->right!=curr){
+                    pred=pred->right;
+                }
+                //predecessor has right NULL then points the right to current so we can go back without recursion
+                if(pred->right==NULL){
+                    pred->right=curr;
+                    curr=curr->left;
+                }
+                else{
+                    //if pred has not right NULL it means its right already visited and points to upper value, then make it's right points again on NULL and save curr value
+                    pred->right=NULL;
+                    ans.push_back(curr->val);
+                    curr=curr->right;
+                }
+            }
+            
+        }
+      
+      return ans;
+    }
