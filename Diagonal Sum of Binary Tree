@@ -1,0 +1,28 @@
+ vector<int> diagonalSum(Node* root) {
+       queue<pair<Node*,int>>q;
+       vector<int>ans;
+       map<int,int>mp;
+       q.push({root,0});
+       while(!q.empty()){
+           int sum=0;
+           int n=q.size();
+           for(int i=0;i<n;i++){
+               auto fnode=q.front().first;
+               int diag=q.front().second;
+               q.pop();
+               mp[diag]+=fnode->data;
+               if(fnode->left){
+                   q.push({fnode->left,diag+1});
+               }
+               if(fnode->right){
+                   q.push({fnode->right,diag});
+               }
+               
+           }
+          
+       }
+       for(auto it:mp){
+           ans.push_back(it.second);
+       }
+       return ans;
+    }
