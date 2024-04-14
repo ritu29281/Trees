@@ -1,0 +1,12 @@
+  void solve(TreeNode* root,int &sum){
+       if(!root) return;
+       solve(root->left,sum);
+        if(root->left && root->left->left==NULL && root->left->right==NULL) sum+=root->left->val;
+       solve(root->right,sum);
+    }
+    int sumOfLeftLeaves(TreeNode* root) {
+        if(root->left==NULL && root->right==NULL)return 0;
+        int sum=0;
+         solve(root,sum);
+        return sum;
+    }
